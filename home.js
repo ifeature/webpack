@@ -1,8 +1,8 @@
-var welcome = require('./welcome');
-welcome('Hello');
-
+import welcome from './welcome';
+welcome('Hello, world!');
 
 if (NODE_ENV === 'development') {
     console.info('This is development mode...');
 }
-exports.t = welcome;
+
+exports.welcome = welcome;

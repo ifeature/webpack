@@ -7,7 +7,7 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 
 module.exports = {
     entry: {
-        app: './home'
+        app: ['babel-polyfill', './home']
     },
     output: {
         path: path.resolve(__dirname, './dist'),
@@ -22,6 +22,23 @@ module.exports = {
         ignored: /node_modules/
     },
     devtool: NODE_ENV ? 'cheap-inline-source-map' : 'source-map',
+    resolve: {
+        modules: ['node_modules'],
+        extensions: ['.js', '.json']
+    },
+    resolveLoader: {
+        modules: ['node_modules'],
+        extensions: ['.js']
+    },
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader'
+            }
+        ]
+    },
     plugins: [
         new webpack.DefinePlugin({
             NODE_ENV: JSON.stringify(NODE_ENV),
