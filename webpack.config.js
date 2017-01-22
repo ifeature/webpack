@@ -9,7 +9,8 @@ module.exports = {
     context: path.resolve(__dirname, './frontend'),
     entry: {
         home: ['babel-polyfill', './home'],
-        about: ['babel-polyfill', './about']
+        about: ['babel-polyfill', './about'],
+        common: ['./welcome', './common']
     },
     output: {
         path: path.resolve(__dirname, './public'),
@@ -48,7 +49,13 @@ module.exports = {
             LANG: JSON.stringify('ru')
         }),
         new webpack.optimize.CommonsChunkPlugin({
-            name: 'common'
+            name: 'common',
+            minChunks: 2,
+            chunks: ['about', 'home']
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'common-goods',
+            chunks: ['shop', 'order']
         })
     ]
 };
