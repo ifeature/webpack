@@ -42,9 +42,13 @@ module.exports = {
         ]
     },
     plugins: [
+        new webpack.NoEmitOnErrorsPlugin(),
         new webpack.DefinePlugin({
             NODE_ENV: JSON.stringify(NODE_ENV),
             LANG: JSON.stringify('ru')
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'common'
         })
     ]
 };
