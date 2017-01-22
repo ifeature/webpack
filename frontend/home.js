@@ -1,5 +1,5 @@
 import welcome from './welcome';
-welcome('Hello, world!');
+welcome('home');
 
 if (NODE_ENV === 'development') {
     console.info('This is development mode...');

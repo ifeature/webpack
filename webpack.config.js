@@ -6,13 +6,15 @@ const webpack = require('webpack');
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
 module.exports = {
+    context: path.resolve(__dirname, './frontend'),
     entry: {
-        app: ['babel-polyfill', './home']
+        home: ['babel-polyfill', './home'],
+        about: ['babel-polyfill', './about']
     },
     output: {
-        path: path.resolve(__dirname, './dist'),
-        filename: '[name].bundle.js',
-        library: 'home',
+        path: path.resolve(__dirname, './public'),
+        filename: '[name].js',
+        library: '[name]',
         libraryTarget: 'this'
     },
     watch: NODE_ENV === 'development',
