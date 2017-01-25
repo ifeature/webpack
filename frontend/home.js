@@ -1,5 +1,6 @@
 import welcome from './welcome';
 
+const old = require('old');
 welcome('home');
 
 if (NODE_ENV === 'development') {
@@ -7,6 +8,7 @@ if (NODE_ENV === 'development') {
 }
 
 console.log('jquery', $);
+old();
 
 btn.onclick = function() {
     require.ensure(['./login'], function() {

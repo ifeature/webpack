@@ -30,8 +30,11 @@ module.exports = {
     },
     devtool: NODE_ENV ? 'cheap-inline-source-map' : 'source-map',
     resolve: {
-        modules: ['node_modules'],
-        extensions: ['.js', '.json']
+        modules: [path.resolve(__dirname, './vendor'), 'node_modules'],
+        extensions: ['.js', '.json'],
+        alias: {
+            old: 'old/dist/old'
+        }
     },
     resolveLoader: {
         modules: ['node_modules'],
@@ -45,6 +48,11 @@ module.exports = {
                 include: path.resolve(__dirname, './frontend'),
                 exclude: /node_modules/,
                 loader: 'babel-loader'
+            },
+            {
+                test: /old.js$/,
+                exclude: /node_modules/,
+                loader: 'imports-loader?workSettings=>{delay:500}!exports-loader?Work'
             }
         ]
     },
