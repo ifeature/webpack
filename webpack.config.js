@@ -52,7 +52,8 @@ module.exports = {
             {
                 test: /old.js$/,
                 exclude: /node_modules/,
-                loader: 'imports-loader?workSettings=>{delay:500}!exports-loader?Work'
+                loader: 'expose-loader?Work!imports-loader?workSettings=>{delay:500}!exports-loader?Work',
+                loader: 'script'
             }
         ]
     },
