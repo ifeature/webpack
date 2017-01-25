@@ -14,7 +14,7 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, './public'),
-        publicPath: '/',
+        publicPath: './',
         filename: '[name].js',
         library: '[name]',
         libraryTarget: 'this'

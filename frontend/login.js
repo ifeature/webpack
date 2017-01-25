@@ -1,3 +1,3 @@
-export default function login() {
+module.exports = function login() {
     console.log('Login...');
 };

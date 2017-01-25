@@ -6,12 +6,10 @@ if (NODE_ENV === 'development') {
 }
 
 btn.onclick = function() {
-    // Promise.resolve()
-    //     .then(function() {
-    //                 require.ensure([], function(require) {
-    //         resolve(require('./login'));
-    //     });
-    //     })
+    require.ensure(['./login'], function() {
+        let login = require('./login');
+        login();
+    }, 'auth');
 };
 
 exports.welcome = welcome;
