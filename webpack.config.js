@@ -19,6 +19,9 @@ module.exports = {
         library: '[name]',
         libraryTarget: 'this'
     },
+    externals: {
+        lodash: '_'
+    },
     watch: NODE_ENV === 'development',
     watchOptions: {
         aggregateTimeout: 100,
@@ -35,9 +38,11 @@ module.exports = {
         extensions: ['.js']
     },
     module: {
+        noParse: /jquery|lodash/,
         rules: [
             {
                 test: /\.js$/,
+                include: path.resolve(__dirname, './frontend'),
                 exclude: /node_modules/,
                 loader: 'babel-loader'
             }
@@ -45,6 +50,9 @@ module.exports = {
     },
     plugins: [
         new webpack.NoEmitOnErrorsPlugin(),
+        new webpack.ProvidePlugin({
+            $: 'jQuery'
+        }),
         new webpack.DefinePlugin({
             NODE_ENV: JSON.stringify(NODE_ENV),
             LANG: JSON.stringify('ru')
