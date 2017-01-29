@@ -50,17 +50,21 @@ module.exports = {
                 loader: 'babel-loader'
             },
             {
+                test: require.resolve('jquery'),
+                loader: 'expose-loader?jQuery!expose-loader?$'
+            },
+            {
                 test: /old.js$/,
                 exclude: /node_modules/,
                 loader: 'expose-loader?Work!imports-loader?workSettings=>{delay:500}!exports-loader?Work',
-                loader: 'script'
+                //loader: 'script'
             }
         ]
     },
     plugins: [
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.ProvidePlugin({
-            $: 'jQuery'
+            // $: 'jQuery'
         }),
         new webpack.DefinePlugin({
             NODE_ENV: JSON.stringify(NODE_ENV),

@@ -1,4 +1,5 @@
 import welcome from './welcome';
+const $ = require('jquery');
 
 const old = require('old');
 welcome('home');
