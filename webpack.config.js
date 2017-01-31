@@ -10,7 +10,8 @@ module.exports = {
     entry: {
         home: ['babel-polyfill', './home'],
         about: ['babel-polyfill', './about'],
-        common: ['./welcome', './common']
+        common: ['./welcome', './common'],
+        main: './main'
     },
     output: {
         path: path.resolve(__dirname, './public'),
@@ -43,6 +44,18 @@ module.exports = {
     module: {
         noParse: /jquery|lodash/,
         rules: [
+            {
+                test: /\.jade$/,
+                loader: 'jade-loader'
+            },
+            {
+                test: /\.styl$/,
+                loader: 'style-loader!css-loader!stylus-loader!autoprefixer-loader?browsers=last 2 version'
+            },
+            {
+                test: /\.(png|jpe?g|svg|ttf|eot|woff|woff2)$/,
+                loader: 'file-loader?name=[path][name].[ext]'
+            },
             {
                 test: /\.js$/,
                 include: path.resolve(__dirname, './frontend'),
