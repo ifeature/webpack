@@ -17,6 +17,7 @@ module.exports = {
         path: path.resolve(__dirname, './public'),
         publicPath: './',
         filename: '[name].js',
+        chunkFilename: '[name].js',
         library: '[name]',
         libraryTarget: 'this'
     },
