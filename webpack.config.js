@@ -61,7 +61,7 @@ module.exports = {
             {
                 test: /\.(png|jpe?g|svg|ttf|eot|woff|woff2)$/,
                 exclude: /\/node_modules\//,
-                loader: 'file-loader?name=[path][name].[ext]'
+                loader: 'url-loader?name=[path][name].[ext]&limit=4096'
             },
             {
                 test: /\.js$/,

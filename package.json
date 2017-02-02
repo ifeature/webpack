@@ -26,6 +26,7 @@
     "script-loader": "^0.7.0",
     "style-loader": "^0.13.1",
     "stylus-loader": "^2.4.0",
+    "url-loader": "^0.5.7",
     "webpack": "^2.2.0"
   },
   "dependencies": {
