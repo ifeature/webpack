@@ -50,8 +50,12 @@ module.exports = {
                 loader: 'jade-loader'
             },
             {
+                test: /\.css$/,
+                loader: 'style-loader!css-loader!autoprefixer-loader?browsers=last 2 version'
+            },
+            {
                 test: /\.styl$/,
-                loader: 'style-loader!css-loader!stylus-loader!autoprefixer-loader?browsers=last 2 version'
+                loader: 'style-loader!css-loader!autoprefixer-loader?browsers=last 2 version!stylus-loader?resolve url'
             },
             {
                 test: /\.(png|jpe?g|svg|ttf|eot|woff|woff2)$/,
