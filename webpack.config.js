@@ -55,6 +55,12 @@ module.exports = {
             },
             {
                 test: /\.(png|jpe?g|svg|ttf|eot|woff|woff2)$/,
+                include: /\/node_modules\//,
+                loader: 'file-loader?name=[1][name].[ext]&regExp=node_modules/(.*)'
+            },
+            {
+                test: /\.(png|jpe?g|svg|ttf|eot|woff|woff2)$/,
+                exclude: /\/node_modules\//,
                 loader: 'file-loader?name=[path][name].[ext]'
             },
             {
