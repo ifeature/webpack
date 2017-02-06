@@ -3,6 +3,8 @@
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const AssetsPlugin = require('assets-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
@@ -18,8 +20,8 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, './public'),
         publicPath: './',
-        filename: '[name].js',
-        chunkFilename: '[name].js',
+        filename: '[name].[chunkhash].js',
+        chunkFilename: '[name].[chunkhash].js',
         library: '[name]',
         libraryTarget: 'this'
     },
@@ -68,7 +70,7 @@ module.exports = {
             {
                 test: /\.(png|jpe?g|svg|ttf|eot|woff|woff2)$/,
                 include: /\/node_modules\//,
-                loader: 'file-loader?name=[1][name].[ext]&regExp=node_modules/(.*)'
+                loader: 'file-loader?name=[1][name].[hash:6].[ext]&regExp=node_modules/(.*)'
             },
             {
                 test: /\.(png|jpe?g|svg|ttf|eot|woff|woff2)$/,
@@ -77,7 +79,7 @@ module.exports = {
                     {
                         loader: 'url-loader',
                         options: {
-                            name: '[path][name].[ext]&limit=4096'
+                            name: '[path][name].[hash:6].[ext]&limit=4096'
                         }
                     }
                 ]
@@ -101,7 +103,15 @@ module.exports = {
         ]
     },
     plugins: [
-        new ExtractTextPlugin({ filename: '[name].css', disable: false, allChunks: true }),
+        new ExtractTextPlugin({ filename: '[name].[contenthash].css', disable: false, allChunks: true }),
+        new AssetsPlugin({
+            filename: 'assets.json',
+            path: path.resolve(__dirname, './public/assets')
+        }),
+        new HtmlWebpackPlugin({
+            filename: './about.html',
+            chunks: ['common', 'about']
+        }),
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.ProvidePlugin({
             // $: 'jQuery'
