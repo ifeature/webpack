@@ -19,9 +19,9 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, './public'),
-        publicPath: './',
-        filename: '[name].[chunkhash].js',
-        chunkFilename: '[name].[chunkhash].js',
+        publicPath: '/',
+        filename: NODE_ENV === 'production' ? '[name].[chunkhash].js' : '[name].js',
+        chunkFilename: NODE_ENV === 'production' ? '[name].[chunkhash].js' : '[name].js',
         library: '[name]',
         libraryTarget: 'this'
     },
@@ -112,6 +112,10 @@ module.exports = {
             filename: './about.html',
             chunks: ['common', 'about']
         }),
+        new HtmlWebpackPlugin({
+            filename: './menu.html',
+            chunks: ['common', 'main']
+        }),
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.ProvidePlugin({
             // $: 'jQuery'
@@ -129,7 +133,15 @@ module.exports = {
             name: 'common-goods',
             chunks: ['shop', 'order']
         })
-    ]
+    ],
+    devServer: {
+        host: 'localhost',
+        port: 9091,
+        contentBase: path.resolve(__dirname, './backend'),
+        proxy: {
+          '*': 'http://localhost:3010'
+        }
+    }
 };
 
 if (NODE_ENV === 'production') {

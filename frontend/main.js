@@ -3,6 +3,7 @@
 require.ensure(['./menu'], function(require) {
     const Menu = require('./menu').default;
 
+
     const pandaMenu = new Menu({
         title: 'Panda Menu',
         items: [
