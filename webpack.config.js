@@ -2,6 +2,7 @@
 
 const path = require('path');
 const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
@@ -11,7 +12,8 @@ module.exports = {
         home: ['babel-polyfill', './home'],
         about: ['babel-polyfill', './about'],
         common: ['./welcome', './common'],
-        main: './main'
+        main: './main',
+        base: './base.css'
     },
     output: {
         path: path.resolve(__dirname, './public'),
@@ -47,15 +49,21 @@ module.exports = {
         rules: [
             {
                 test: /\.jade$/,
-                loader: 'jade-loader'
+                use: ['jade-loader']
             },
             {
                 test: /\.css$/,
-                loader: 'style-loader!css-loader!autoprefixer-loader?browsers=last 2 version'
+                use: ExtractTextPlugin.extract({
+                    fallbackLoader: 'style-loader',
+                    loader: 'css-loader!autoprefixer-loader?browsers=last 2 versions'
+                })
             },
             {
                 test: /\.styl$/,
-                loader: 'style-loader!css-loader!autoprefixer-loader?browsers=last 2 version!stylus-loader?resolve url'
+                use: ExtractTextPlugin.extract({
+                    fallbackLoader: 'style-loader',
+                    loader: 'css-loader!autoprefixer-loader?browsers=last 2 version!stylus-loader?resolve url'
+                })
             },
             {
                 test: /\.(png|jpe?g|svg|ttf|eot|woff|woff2)$/,
@@ -65,13 +73,20 @@ module.exports = {
             {
                 test: /\.(png|jpe?g|svg|ttf|eot|woff|woff2)$/,
                 exclude: /\/node_modules\//,
-                loader: 'url-loader?name=[path][name].[ext]&limit=4096'
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            name: '[path][name].[ext]&limit=4096'
+                        }
+                    }
+                ]
             },
             {
                 test: /\.js$/,
                 include: path.resolve(__dirname, './frontend'),
                 exclude: /node_modules/,
-                loader: 'babel-loader'
+                use: ['babel-loader']
             },
             {
                 test: require.resolve('jquery'),
@@ -86,6 +101,7 @@ module.exports = {
         ]
     },
     plugins: [
+        new ExtractTextPlugin({ filename: '[name].css', disable: false, allChunks: true }),
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.ProvidePlugin({
             // $: 'jQuery'
