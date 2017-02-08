@@ -103,7 +103,12 @@ module.exports = {
         ]
     },
     plugins: [
-        new ExtractTextPlugin({ filename: '[name].[contenthash].css', disable: false, allChunks: true }),
+        new ExtractTextPlugin({
+            filename: '[name].[contenthash].css',
+            disable: false,
+            allChunks: true,
+            disable: NODE_ENV === 'development'
+        }),
         new AssetsPlugin({
             filename: 'assets.json',
             path: path.resolve(__dirname, './public/assets')
@@ -132,12 +137,16 @@ module.exports = {
         new webpack.optimize.CommonsChunkPlugin({
             name: 'common-goods',
             chunks: ['shop', 'order']
-        })
+        }),
+        new webpack.HotModuleReplacementPlugin()
     ],
     devServer: {
+        inline: true,
+        hot: true,
         host: 'localhost',
         port: 9091,
         contentBase: path.resolve(__dirname, './backend'),
+        historyApiFallback: true,
         proxy: {
           '*': 'http://localhost:3010'
         }
